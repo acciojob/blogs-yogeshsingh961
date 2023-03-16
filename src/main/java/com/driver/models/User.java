@@ -11,8 +11,8 @@ import java.util.List;
     private int id;
    private String userName;
    private String password;
-   private String firstName;
-   private String lastName;
+   private String firstName="test";
+   private String lastName="test";
    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
    List<Blog> blogList= new ArrayList<>();
 
@@ -24,8 +24,7 @@ import java.util.List;
          this.id=id;
          this.userName = userName;
          this.password = password;
-         this.firstName = "test";
-         this.lastName = "test";
+
      }
 
     public int getId() {
@@ -56,17 +55,12 @@ import java.util.List;
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public List<Blog> getBlogList() {
         return blogList;
