@@ -15,17 +15,61 @@ public class ImageService {
     @Autowired
     ImageRepository imageRepository2;
 
-    public Image addImage(Integer blogId, String description, String dimensions){
+    public Image addImage(Integer blogId, String description, String dimensions) throws Exception {
         //add an image to the blog
+        Blog blog;
+        try{
+            blog=blogRepository2.findById(blogId).get();
+        }catch (Exception e){
+            throw new Exception("No such blog present!");
+        }
+        Image image= new Image();
+        image.setDescripiton(description);
+        image.setDimension(dimensions);
+        image.setBlog(blog);
+
+        //set this image to imagelist of a blog
+        blog.getImageList().add(image);
+
+        blogRepository2.save(blog); //saving blog ,image will be autosaved
+        return image;
 
     }
 
-    public void deleteImage(Integer id){
+    public void deleteImage(Integer id) throws Exception {
+        Image image;
+        try{
+            image=imageRepository2.findById(id).get();
 
+        }catch (Exception e){
+            throw new Exception("Image is not present!");
+        }
+        //found the image
+
+       imageRepository2.deleteById(id);
+       Blog blog=image.getBlog();
+       blog.getImageList().remove(image);
     }
 
-    public int countImagesInScreen(Integer id, String screenDimensions) {
+    public int countImagesInScreen(Integer id, String screenDimensions) throws Exception {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
+
+        int indOfXinScreen=screenDimensions.indexOf('X');
+        int leftScreen=Integer.parseInt(screenDimensions.substring(0,indOfXinScreen));
+        int rightScreen=Integer.parseInt(screenDimensions.substring(indOfXinScreen));
+        //find image object
+        Image image;
+        try{
+            image=imageRepository2.findById(id).get();
+        }catch (Exception e){
+            throw new Exception("image is not present!");
+        }
+       int indOfXInImage=image.getDimension().indexOf('X');
+        int leftImage=Integer.parseInt(image.getDimension().substring(0,indOfXInImage));
+        int rightImage=Integer.parseInt(image.getDimension().substring(indOfXInImage));
+
+        int ans=(leftScreen/leftImage)* (rightScreen/rightImage);
+        return ans;
 
     }
 }
