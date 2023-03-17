@@ -9,23 +9,24 @@ import java.util.List;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-   private String userName;
-   private String password;
-   private String firstName="test";
-   private String lastName="test";
-   @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-   List<Blog> blogList= new ArrayList<>();
+
+    private String userName;
+    private String password;
+    private String firstName="test";
+    private String lastName="test";
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    List<Blog> blogList= new ArrayList<>();
 
    public User(){
 
    }
 
-     public User(int id,String userName, String password) {
-         this.id=id;
-         this.userName = userName;
-         this.password = password;
-
-     }
+    public User(String username, String password, String firstName, String lastName) {
+        this.userName = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public int getId() {
         return id;

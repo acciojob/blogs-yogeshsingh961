@@ -26,13 +26,13 @@ public class UserService {
        userRepository3.deleteById(userId);
     }
 
-    public User updateUser(Integer id, String password) throws Exception {
+    public User updateUser(Integer id, String password){
        User user;
-       try{
+      // try{
            user=userRepository3.findById(id).get();
-       }catch (Exception e){
-           throw new Exception("User not found!");
-       }
+//       }catch (Exception e){
+//           throw new Exception("User not found!");
+//       }
        user.setPassword(password);
        userRepository3.save(user);
        return user;

@@ -15,18 +15,18 @@ public class ImageService {
     @Autowired
     ImageRepository imageRepository2;
 
-    public Image addImage(Integer blogId, String description, String dimensions) throws Exception {
+    public Image addImage(Integer blogId, String description, String dimensions)  {
         //add an image to the blog
         Blog blog;
-        try{
+        //try{
             blog=blogRepository2.findById(blogId).get();
-        }catch (Exception e){
-            throw new Exception("No such blog present!");
-        }
+//        }catch (Exception e){
+//            throw new Exception("No such blog present!");
+//        }
         Image image= new Image();
         image.setDescripiton(description);
         image.setDimension(dimensions);
-        image.setBlog(blog);
+        image.setBlog(blog); // link this blog(parent) as blog_id(fk) to image table(child)
 
         //set this image to imagelist of a blog
         blog.getImageList().add(image);
@@ -36,22 +36,22 @@ public class ImageService {
 
     }
 
-    public void deleteImage(Integer id) throws Exception {
+    public void deleteImage(Integer id){
         Image image;
-        try{
+       // try{
             image=imageRepository2.findById(id).get();
 
-        }catch (Exception e){
-            throw new Exception("Image is not present!");
-        }
+//        }catch (Exception e){
+//            throw new Exception("Image is not present!");
+//        }
         //found the image
 
-       imageRepository2.deleteById(id);
-       Blog blog=image.getBlog();
-       blog.getImageList().remove(image);
+//       imageRepository2.deleteById(id);
+//       Blog blog=image.getBlog();
+//       blog.getImageList().remove(image);
     }
 
-    public int countImagesInScreen(Integer id, String screenDimensions) throws Exception {
+    public int countImagesInScreen(Integer id, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
 
         int indOfXinScreen=screenDimensions.indexOf('X');
@@ -59,11 +59,11 @@ public class ImageService {
         int rightScreen=Integer.parseInt(screenDimensions.substring(indOfXinScreen));
         //find image object
         Image image;
-        try{
+      //  try{
             image=imageRepository2.findById(id).get();
-        }catch (Exception e){
-            throw new Exception("image is not present!");
-        }
+//        }catch (Exception e){
+//            throw new Exception("image is not present!");
+//        }
        int indOfXInImage=image.getDimension().indexOf('X');
         int leftImage=Integer.parseInt(image.getDimension().substring(0,indOfXInImage));
         int rightImage=Integer.parseInt(image.getDimension().substring(indOfXInImage));

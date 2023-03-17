@@ -21,14 +21,14 @@ public class BlogService {
     @Autowired
     UserRepository userRepository1;
 
-    public Blog createAndReturnBlog(Integer userId, String title, String content) throws Exception {
+    public Blog createAndReturnBlog(Integer userId, String title, String content){
         // get the user object
         User user;
-        try{
+//        try{
             user=userRepository1.findById(userId).get();
-        }catch(Exception e){
-            throw new Exception("User not found!");
-        }
+//        }catch(Exception e){
+//            throw new Exception("User not found!");
+//        }
         //create a blog at the current time
 
         Blog blog = new Blog();

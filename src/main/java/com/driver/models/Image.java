@@ -17,11 +17,10 @@ public class Image{
 
     }
 
-    public Image(int id,String dimension, String descripiton, Blog blog) {
-        this.id=id;
-        this.dimension = dimension;
-        this.descripiton = descripiton;
-        this.blog = blog;
+    public Image(int id, String description, String dimensions) {
+        this.id = id;
+        this.descripiton = description;
+        this.dimension = dimensions;
     }
 
     public int getId() {

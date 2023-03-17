@@ -1,5 +1,7 @@
 package com.driver.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +14,7 @@ public class Blog{
     private int id;
     private String title;
     private String content;
+
     private Date pubDate;
 
     @ManyToOne
@@ -24,14 +27,13 @@ public class Blog{
     public Blog(){
 
     }
-
-    public Blog(int id,String title, String content, Date pubDate, User user) {
-        this.id=id;
+    public Blog(int id, String title, String content, Date pubDate) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.pubDate = pubDate;
-        this.user = user;
     }
+
 
     public List<Image> getImageList() {
         return imageList;
