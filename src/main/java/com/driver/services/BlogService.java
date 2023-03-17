@@ -23,9 +23,9 @@ public class BlogService {
 
     public Blog createAndReturnBlog(Integer userId, String title, String content){
         // get the user object
-        User user;
+
 //        try{
-            user=userRepository1.findById(userId).get();
+           User user=userRepository1.findById(userId).get();
 //        }catch(Exception e){
 //            throw new Exception("User not found!");
 //        }

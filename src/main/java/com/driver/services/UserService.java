@@ -27,9 +27,9 @@ public class UserService {
     }
 
     public User updateUser(Integer id, String password){
-       User user;
+       //User user;
       // try{
-           user=userRepository3.findById(id).get();
+        User user=userRepository3.findById(id).get();
 //       }catch (Exception e){
 //           throw new Exception("User not found!");
 //       }

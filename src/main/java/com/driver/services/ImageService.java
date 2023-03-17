@@ -17,9 +17,9 @@ public class ImageService {
 
     public Image addImage(Integer blogId, String description, String dimensions)  {
         //add an image to the blog
-        Blog blog;
+
         //try{
-            blog=blogRepository2.findById(blogId).get();
+        Blog  blog=blogRepository2.findById(blogId).get();
 //        }catch (Exception e){
 //            throw new Exception("No such blog present!");
 //        }
@@ -37,9 +37,9 @@ public class ImageService {
     }
 
     public void deleteImage(Integer id){
-        Image image;
+       //Image image;
        // try{
-            image=imageRepository2.findById(id).get();
+            imageRepository2.findById(id).get();
 
 //        }catch (Exception e){
 //            throw new Exception("Image is not present!");
