@@ -9,24 +9,27 @@ import java.util.List;
 
 @Entity
 public class Blog{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
+
     private String title;
+
     private String content;
 
+    //    @CreationTimestamp
     private Date pubDate;
 
+
     @ManyToOne
-    @JoinColumn//fk will be created as user_id in blog table
+    @JoinColumn //FK user id will be present for each blogid
     User user; //maps the Blog entity with the User table using "user" variabe
+
 
     @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
     List<Image> imageList = new ArrayList<>(); //one blog can have many images
 
-    public Blog(){
-
-    }
     public Blog(int id, String title, String content, Date pubDate) {
         this.id = id;
         this.title = title;
@@ -34,7 +37,11 @@ public class Blog{
         this.pubDate = pubDate;
     }
 
+    public Blog(){}
 
+    public User getUser() {
+        return user;
+    }
     public List<Image> getImageList() {
         return imageList;
     }
@@ -43,6 +50,9 @@ public class Blog{
         this.imageList = imageList;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
     public int getId() {
         return id;
     }
@@ -73,13 +83,5 @@ public class Blog{
 
     public void setPubDate(Date pubDate) {
         this.pubDate = pubDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

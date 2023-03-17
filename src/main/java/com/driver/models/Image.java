@@ -1,28 +1,36 @@
 package com.driver.models;
-import javax.persistence.*;
 
+import javax.persistence.*;
 @Entity
 public class Image{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String dimension;
-    private String descripiton;
+    int id;
+
+    private String description;
+
+    private String dimensions;
+
 
     @ManyToOne
     @JoinColumn //introduces a FK blog id in Image table
-    Blog blog;
-
-    public Image(){
-
-    }
+    private Blog blog;
 
     public Image(int id, String description, String dimensions) {
         this.id = id;
-        this.descripiton = description;
-        this.dimension = dimensions;
+        this.description = description;
+        this.dimensions = dimensions;
     }
 
+    public Image(){}
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
     public int getId() {
         return id;
     }
@@ -31,27 +39,19 @@ public class Image{
         this.id = id;
     }
 
-    public String getDimension() {
-        return dimension;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDimension(String dimension) {
-        this.dimension = dimension;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDescripiton() {
-        return descripiton;
+    public String getDimensions() {
+        return dimensions;
     }
 
-    public void setDescripiton(String descripiton) {
-        this.descripiton = descripiton;
-    }
-
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
+    public void setDimensions(String dimensions) {
+        this.dimensions = dimensions;
     }
 }

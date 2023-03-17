@@ -15,61 +15,53 @@ public class ImageService {
     @Autowired
     ImageRepository imageRepository2;
 
-    public Image addImage(Integer blogId, String description, String dimensions)  {
+    public Image addImage(Integer blogId, String description, String dimensions) {
         //add an image to the blog
+        Blog blog=blogRepository2.findById(blogId).get();
 
-        //try{
-        Blog  blog=blogRepository2.findById(blogId).get();
-//        }catch (Exception e){
-//            throw new Exception("No such blog present!");
-//        }
-        Image image= new Image();
-        image.setDescripiton(description);
-        image.setDimension(dimensions);
-        image.setBlog(blog); // link this blog(parent) as blog_id(fk) to image table(child)
+        //blog exist
 
-        //set this image to imagelist of a blog
+        Image image = new Image(); //create the image
+        //set image attributes
+        image.setDescription(description);
+        image.setDimensions(dimensions);
+        image.setBlog(blog);
+
+        //add the image to the blog
         blog.getImageList().add(image);
 
-        blogRepository2.save(blog); //saving blog ,image will be autosaved
+        //saving blog wil save the image too
+        blogRepository2.save(blog);
+
         return image;
+    }
+
+    public void deleteImage(Integer id)  {
+        //find the image
+
+        imageRepository2.deleteById(id);
+
+        //image exist so delete it
 
     }
 
-    public void deleteImage(Integer id){
-       //Image image;
-       // try{
-            imageRepository2.findById(id).get();
-
-//        }catch (Exception e){
-//            throw new Exception("Image is not present!");
-//        }
-        //found the image
-
-//       imageRepository2.deleteById(id);
-//       Blog blog=image.getBlog();
-//       blog.getImageList().remove(image);
-    }
-
-    public int countImagesInScreen(Integer id, String screenDimensions) {
+    public int countImagesInScreen(Integer id, String screenDimensions)  {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
 
-        int indOfXinScreen=screenDimensions.indexOf('X');
-        int leftScreen=Integer.parseInt(screenDimensions.substring(0,indOfXinScreen));
-        int rightScreen=Integer.parseInt(screenDimensions.substring(indOfXinScreen));
-        //find image object
-        Image image;
-      //  try{
-            image=imageRepository2.findById(id).get();
-//        }catch (Exception e){
-//            throw new Exception("image is not present!");
-//        }
-       int indOfXInImage=image.getDimension().indexOf('X');
-        int leftImage=Integer.parseInt(image.getDimension().substring(0,indOfXInImage));
-        int rightImage=Integer.parseInt(image.getDimension().substring(indOfXInImage));
+        int indOfX=screenDimensions.indexOf('X');
 
-        int ans=(leftScreen/leftImage)* (rightScreen/rightImage);
-        return ans;
+        int screenH=Integer.parseInt(screenDimensions.substring(0,indOfX));
+        int screenW=Integer.parseInt(screenDimensions.substring(indOfX+1));
 
+        //find the image
+        Image image=imageRepository2.findById(id).get();
+
+        //image is found , extract its wdith and height
+        int indxOfXinImage=image.getDimensions().indexOf('X');
+
+        int imageH=Integer.parseInt(image.getDimensions().substring(0,indxOfXinImage));
+        int imageW=Integer.parseInt(image.getDimensions().substring(indxOfXinImage+1));
+
+        return (screenH/imageH) * (screenW/imageW); //num of complete images that fit in the screen of given dimensions
     }
 }

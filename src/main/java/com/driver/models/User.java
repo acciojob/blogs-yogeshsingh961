@@ -5,29 +5,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
- public class User{
+public class User{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
+    private String username ;
 
-    private String userName;
-    private String password;
-    private String firstName="test";
-    private String lastName="test";
+    private String password ;
+
+    private String firstName ="test";
+
+    private String lastName ="test";
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    List<Blog> blogList= new ArrayList<>();
-
-   public User(){
-
-   }
-
+    List<Blog> blogList = new ArrayList<>();
     public User(String username, String password, String firstName, String lastName) {
-        this.userName = username;
+        this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    public User(){
+
+    }
+
+    public List<Blog> getBlogList() {
+        return blogList;
+    }
+
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
+    }
     public int getId() {
         return id;
     }
@@ -35,13 +45,12 @@ import java.util.List;
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -56,18 +65,15 @@ import java.util.List;
         return firstName;
     }
 
-
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
     public String getLastName() {
         return lastName;
     }
 
-
-    public List<Blog> getBlogList() {
-        return blogList;
-    }
-
-    public void setBlogList(List<Blog> blogList) {
-        this.blogList = blogList;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
