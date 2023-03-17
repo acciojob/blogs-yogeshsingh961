@@ -23,20 +23,21 @@ public class BlogService {
 
     public Blog createAndReturnBlog(Integer userId, String title, String content) {
         //create a blog at the current time
+        // for this no need of exception handling
         User user=userRepository1.findById(userId).get();
 
-        //create the blog
+        //create the blog object and set the attributes
         Blog blog = new Blog();
         blog.setTitle(title);
         blog.setContent(content);
         blog.setPubDate(new Date());
 
-        blog.setUser(user); //link the user to the blog
+        blog.setUser(user); //link user(parent's user_id) to blog(child) table as fk
 
-        //add this blog to user's bloglist
+        //add current blog to user's bloglist
         user.getBlogList().add(blog);
 
-        //save user- blog will get autosaved
+        //by saving user(parent) blog(child) will autosaved
         userRepository1.save(user);
 
         return blog;

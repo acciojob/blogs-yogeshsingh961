@@ -17,9 +17,10 @@ public class ImageService {
 
     public Image addImage(Integer blogId, String description, String dimensions) {
         //add an image to the blog
+        // no need of exception handling for this assignment
         Blog blog=blogRepository2.findById(blogId).get();
 
-        //blog exist
+        //if you here means blog exist
 
         Image image = new Image(); //create the image
         //set image attributes
@@ -27,10 +28,10 @@ public class ImageService {
         image.setDimensions(dimensions);
         image.setBlog(blog);
 
-        //add the image to the blog
+        //add current image to the blog(parent)
         blog.getImageList().add(image);
 
-        //saving blog wil save the image too
+        //saving blog(parent) ,image(child) will be autosaved
         blogRepository2.save(blog);
 
         return image;
@@ -38,6 +39,7 @@ public class ImageService {
 
     public void deleteImage(Integer id)  {
         //find the image
+        // no need to check for exception handling for this assignment
 
         imageRepository2.deleteById(id);
 
@@ -47,13 +49,13 @@ public class ImageService {
 
     public int countImagesInScreen(Integer id, String screenDimensions)  {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
-
+        // find the index of 'X'
         int indOfX=screenDimensions.indexOf('X');
-
+        // find the left(length & right(breadth) character around 'X' and convert this into integer
         int screenH=Integer.parseInt(screenDimensions.substring(0,indOfX));
         int screenW=Integer.parseInt(screenDimensions.substring(indOfX+1));
 
-        //find the image
+        //find the image that is to be set in the given dimension(screenDimensions)
         Image image=imageRepository2.findById(id).get();
 
         //image is found , extract its wdith and height

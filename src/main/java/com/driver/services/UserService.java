@@ -14,7 +14,7 @@ public class UserService {
     UserRepository userRepository3;
 
     public User createUser(String username, String password){
-
+       // set user attributes
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
