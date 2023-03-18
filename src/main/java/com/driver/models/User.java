@@ -20,7 +20,8 @@ public class User{
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Blog> blogList = new ArrayList<>();
-    public User(String username, String password, String firstName, String lastName) {
+    public User(int id,String username, String password, String firstName, String lastName) {
+        this.id=id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
